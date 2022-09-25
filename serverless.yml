@@ -10,10 +10,28 @@ provider:
   runtime: nodejs14.x
   region: ap-southeast-1
   timeout: 300
+  environment:
+    TOPIC_ARN: ${self:custom.SnsArn}
+  
 
+resources:
+  Resources:
+    SnsTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: "Cost-Notifier-Topic"
+        TopicName: "Cost-Notifier-Topic"
+        Subscription:
+          - Endpoint: ${self:custom.targetPhoneNumber}
+            Protocol: "sms"
 
 functions:
   hello:
     handler: src/handler.hello
     events:
       - schedule: cron(* * * * ? *)
+
+custom:
+  targetPhoneNumber: '+6281283370968'
+  SnsTopic: !GetAtt  SnsTopic.TopicName
+  SnsArn: !Ref SnsTopic
