@@ -12,7 +12,14 @@ provider:
   timeout: 300
   environment:
     TOPIC_ARN: ${self:custom.SnsArn}
-  
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - sns:Publish
+            - ce:GetCostAndUsage
+          Resource: '*'
 
 resources:
   Resources:
@@ -29,7 +36,7 @@ functions:
   CostNotifier:
     handler: src/handler.costNotifier
     events:
-      - schedule: cron(* * * * ? *)
+      - schedule: cron(0 6 * * ? *)
 
 custom:
   targetPhoneNumber: '+6281283370968'

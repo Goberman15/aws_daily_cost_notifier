@@ -7,7 +7,6 @@ import {
 import {
   SNSClient,
   PublishCommand,
-  PublishBatchCommandInput,
   PublishCommandInput,
 } from "@aws-sdk/client-sns";
 
@@ -16,16 +15,14 @@ const snsClient = new SNSClient({});
 
 export const costNotifier = async () => {
   const date = new Date();
-  const startYear = date.getFullYear();
-  const startMonth = (date.getMonth() + 1).toString().padStart(2, "0");
-  const startDay = date.getDate();
-
-  console.log({ date });
-  date.setDate(date.getDate() + 1);
   const endYear = date.getFullYear();
   const endMonth = (date.getMonth() + 1).toString().padStart(2, "0");
   const endDay = date.getDate();
 
+  date.setDate(date.getDate() - 1);
+  const startYear = date.getFullYear();
+  const startMonth = (date.getMonth() + 1).toString().padStart(2, "0");
+  const startDay = date.getDate();
 
   const filter: Expression = {
     Not: {
@@ -40,7 +37,7 @@ export const costNotifier = async () => {
     Granularity: "DAILY",
     TimePeriod: {
       Start: `${startYear}-${startMonth}-${startDay}`,
-      End: `${endYear}-${endMonth}-${endDay}`
+      End: `${endYear}-${endMonth}-${endDay}`,
     },
     Metrics: ["BlendedCost"],
     Filter: filter,
@@ -57,7 +54,10 @@ export const costNotifier = async () => {
   const dailyCost = Number(result.ResultsByTime[0].Total?.BlendedCost.Amount);
 
   const publishInput: PublishCommandInput = {
-    Message: `Total Usage --> US$ ${dailyCost.toFixed(3)}`,
+    Message: `
+      Your Total Usage for ${startDay}-${startMonth}-${startYear} --> US$ ${dailyCost.toFixed(
+      3
+    )}`,
     TopicArn: process.env.TOPIC_ARN,
   };
 
