@@ -2,10 +2,13 @@ service: aws-daily-usage-notifier
 
 frameworkVersion: '3'
 
+plugins:
+  - serverless-plugin-typescript
+
 provider:
   name: aws
-  runtime: nodejs16.x
+  runtime: nodejs14.x
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/handler.hello
