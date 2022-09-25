@@ -14,7 +14,7 @@ import {
 const ceClient = new CostExplorerClient({});
 const snsClient = new SNSClient({});
 
-export const hello = async () => {
+export const costNotifier = async () => {
   const date = new Date();
   const startYear = date.getFullYear();
   const startMonth = (date.getMonth() + 1).toString().padStart(2, "0");
