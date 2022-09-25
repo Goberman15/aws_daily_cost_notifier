@@ -16,9 +16,16 @@ const snsClient = new SNSClient({});
 
 export const hello = async () => {
   const date = new Date();
-  const year = date.getFullYear();
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const day = date.getDate();
+  const startYear = date.getFullYear();
+  const startMonth = (date.getMonth() + 1).toString().padStart(2, "0");
+  const startDay = date.getDate();
+
+  console.log({ date });
+  date.setDate(date.getDate() + 1);
+  const endYear = date.getFullYear();
+  const endMonth = (date.getMonth() + 1).toString().padStart(2, "0");
+  const endDay = date.getDate();
+
 
   const filter: Expression = {
     Not: {
@@ -32,8 +39,8 @@ export const hello = async () => {
   const request: GetCostAndUsageCommandInput = {
     Granularity: "DAILY",
     TimePeriod: {
-      Start: `${year}-${month}-${day}`,
-      End: `${year}-${month}-${day + 1}`,
+      Start: `${startYear}-${startMonth}-${startDay}`,
+      End: `${endYear}-${endMonth}-${endDay}`
     },
     Metrics: ["BlendedCost"],
     Filter: filter,

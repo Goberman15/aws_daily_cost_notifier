@@ -19,7 +19,7 @@ resources:
     SnsTopic:
       Type: AWS::SNS::Topic
       Properties:
-        DisplayName: "Cost-Notifier-Topic"
+        DisplayName: "AWS Daily Cost Usage"
         TopicName: "Cost-Notifier-Topic"
         Subscription:
           - Endpoint: ${self:custom.targetPhoneNumber}
