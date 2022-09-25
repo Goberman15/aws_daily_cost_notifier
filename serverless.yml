@@ -8,7 +8,12 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
+  region: ap-southeast-1
+  timeout: 300
+
 
 functions:
   hello:
     handler: src/handler.hello
+    events:
+      - schedule: cron(* * * * ? *)
