@@ -1,0 +1,10 @@
+{
+  "name": "aws-daily-cost-notifier",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.106",
+    "@types/node": "^18.7.21"
+  }
+}
