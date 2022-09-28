@@ -54,6 +54,7 @@ export const costNotifier = async () => {
   const dailyCost = Number(result.ResultsByTime[0].Total?.BlendedCost.Amount);
 
   const publishInput: PublishCommandInput = {
+    Subject: `AWS Daily Usage for ${startDay}-${startMonth}-${startYear}`,
     Message: `
       Your Total Usage for ${startDay}-${startMonth}-${startYear} --> US$ ${dailyCost.toFixed(
       3
@@ -62,4 +63,5 @@ export const costNotifier = async () => {
   };
 
   await snsClient.send(new PublishCommand(publishInput));
+  console.log("Success!");
 };

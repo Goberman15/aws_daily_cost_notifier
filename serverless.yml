@@ -29,8 +29,8 @@ resources:
         DisplayName: "AWS Daily Cost Usage"
         TopicName: "Cost-Notifier-Topic"
         Subscription:
-          - Endpoint: ${self:custom.targetPhoneNumber}
-            Protocol: "sms"
+          - Endpoint: ${self:custom.targetEmail}
+            Protocol: email
 
 functions:
   CostNotifier:
@@ -39,6 +39,6 @@ functions:
       - schedule: cron(0 6 * * ? *)
 
 custom:
-  targetPhoneNumber: '+6281283370968'
+  targetEmail: 'akbarrmdhn94@gmail.com'
   SnsTopic: !GetAtt  SnsTopic.TopicName
   SnsArn: !Ref SnsTopic
