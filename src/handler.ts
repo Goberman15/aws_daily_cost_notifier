@@ -17,12 +17,12 @@ export const costNotifier = async () => {
   const date = new Date();
   const endYear = date.getFullYear();
   const endMonth = (date.getMonth() + 1).toString().padStart(2, "0");
-  const endDay = date.getDate();
+  const endDay = date.getDate().toString().padStart(2, "0");;
 
   date.setDate(date.getDate() - 1);
   const startYear = date.getFullYear();
   const startMonth = (date.getMonth() + 1).toString().padStart(2, "0");
-  const startDay = date.getDate();
+  const startDay = date.getDate().toString().padStart(2, "0");
 
   const filter: Expression = {
     Not: {
