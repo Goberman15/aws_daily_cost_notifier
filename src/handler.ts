@@ -57,7 +57,7 @@ export const costNotifier = async () => {
     Subject: `AWS Daily Usage for ${startDay}-${startMonth}-${startYear}`,
     Message: `
       Your Total Usage for ${startDay}-${startMonth}-${startYear} --> US$ ${dailyCost.toFixed(
-      3
+      2
     )}`,
     TopicArn: process.env.TOPIC_ARN,
   };
