@@ -36,7 +36,7 @@ functions:
   CostNotifier:
     handler: src/handler.costNotifier
     events:
-      - schedule: cron(0 6 * * ? *)
+      - schedule: cron(0 0/2 * * ? *)
 
 custom:
   targetEmail: 'akbarrmdhn94@gmail.com'
